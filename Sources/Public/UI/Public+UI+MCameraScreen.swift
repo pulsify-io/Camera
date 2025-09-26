@@ -67,6 +67,10 @@ public protocol MCameraScreen: View {
 
 // MARK: Methods
 public extension MCameraScreen {
+    /// Exposes the underlying AVCaptureSession when available.
+    /// Returns nil if a mock or non-AVFoundation session is in use.
+    var captureSession: AVCaptureSession? { cameraManager.captureSession as? AVCaptureSession }
+
     /**
      View that displays the camera output.
 

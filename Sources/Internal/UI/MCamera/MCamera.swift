@@ -91,11 +91,15 @@ import SwiftUI
  ```
  */
 public struct MCamera: View {
-    @ObservedObject var manager: CameraManager
+    @StateObject var manager: CameraManager
     @Namespace var namespace
     var config: Config = .init()
 
-    
+    // Explicit init to correctly initialize @StateObject (internal to avoid exposing internal Config)
+    init(manager: CameraManager) {
+        _manager = StateObject(wrappedValue: manager)
+    }
+
     public var body: some View { if config.isCameraConfigured {
         ZStack(content: createContent)
             .onDisappear(perform: onDisappear)
